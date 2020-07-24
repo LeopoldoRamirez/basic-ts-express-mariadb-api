@@ -1,0 +1,10 @@
+{
+    "type": "mariadb",
+    "host": "localhost",
+    "port": 3307,
+    "username": "root",
+    "password": "password",
+    "database": "ts_api_sqldb",
+    "entities": ["src/entity/**/*.ts"],
+    "synchronize": true
+ }
