@@ -1,5 +1,8 @@
 import express from "express";
 import morgan from "morgan";
+
+import "./database";
+
 import productRouter from "./routes/product.routes";
 
 export const init = async() => {
@@ -14,7 +17,6 @@ export const init = async() => {
     app.use( productRouter );
 
 
-    await app.listen(3000);
+    app.listen(3000);
     console.log('Welcome to API Node.js, Express, TypeScript and TypeORM ,Listening on port 3000');
 }
-

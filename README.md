@@ -1,5 +1,10 @@
 ## Basic API using  Node, Expres, TypeScript and MariaDB
 
+## to check used ports
+# $ netstat -antplF
+
+
+
 ## 1) create project
 # $ npm init -y
 
