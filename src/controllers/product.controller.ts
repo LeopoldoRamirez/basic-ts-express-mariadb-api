@@ -7,6 +7,19 @@ function getProductRepo():Repository<Product>{
     return getRepository(Product);
 }
 
+async function findOneProduct( productId: string ): Promise<Product | undefined> {
+    let product = undefined;    
+    
+    try {
+        const repository :Repository<Product>  = getProductRepo();
+        product =  await repository.findOne( productId );
+    } catch (error) {
+        console.error(error);
+    }
+    return product;
+}
+
+
 export const getProducts = async ( request: Request, response: Response ) : Promise<Response> =>{
     
     try {
@@ -18,9 +31,6 @@ export const getProducts = async ( request: Request, response: Response ) : Prom
     } catch (error) {
         return response.status(500).json( error );    
     }
-    
-    
-    return response.status(201).json({msg: "ok"});
 }
 
 
@@ -28,10 +38,7 @@ export const getProductById = async ( request: Request, response: Response ) : P
     const id = request.params.id;
     
     try {
-        const repository: Repository<Product> = getProductRepo();
-        
-        const product = await repository.findOne( id );
-
+        const product = await findOneProduct( id );
         if( product ){
             return response.status(200).json( product );
         }
@@ -47,8 +54,7 @@ export const saveProduct = async ( request: Request, response: Response ) : Prom
     console.log("into save method ", request.body );
     
     const repository:Repository<Product> = getProductRepo();
-    try {
-        
+    try {       
 
         // create an entity to persist from request json body
         const productEntity = repository.create( request.body );
@@ -59,34 +65,29 @@ export const saveProduct = async ( request: Request, response: Response ) : Prom
         return response.status(200).json( results );
     } catch (error) {
         return response.status(500).json(error);    
-    }
-
-
-    
+    }    
 }
 
 
 export const updateProduct = async ( request: Request, response: Response ) : Promise<Response> =>{
     const id = request.params.id;
-    const updates =  request.body;
-    try {
-        const repository :Repository<Product> = getProductRepo();
-        
-        const wantedProduct = await repository.findOne(id);
+    
+    try {        
+        const wantedProduct = await findOneProduct(id);
 
         if( wantedProduct ){
+            const updates =  request.body;
+            const repository :Repository<Product> = getProductRepo();
             repository.merge( wantedProduct , updates );
             const results = await repository.update( id, wantedProduct);
 
             return response.status(200).json( results );
-        }        
+        }
 
         return response.status(404).json( { msg: `Product with id ${id} not found` } );
     } catch (error) {
         return response.status(500).json(error);    
-    }
-
-    
+    }    
 }
 
 
@@ -94,14 +95,19 @@ export const deleteProduct = async ( request: Request, response: Response ) : Pr
     try {
         const id = request.params.id;
 
-        const repository:Repository<Product> = getProductRepo();
-        
-        const results = repository.delete(id);
+        const productToDelete = await findOneProduct( id );
 
-        return response.status(200).json(results);    
+        console.log( "Product to delete ..", productToDelete );
+
+        if( productToDelete ){
+            const repository:Repository<Product> = getProductRepo();        
+            const results = repository.delete(id);
+            return response.status(200).json(results);
+        }
+
+        return response.status(404).json( { msg: `Product with id ${id} not found` } );
+
     } catch (error) {
         return response.status(500).json(error);    
-    }
-
-    
+    }    
 }
