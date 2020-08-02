@@ -1,9 +1,11 @@
 import express from "express";
 import morgan from "morgan";
+import router from "./routes/index.router";
+
+import { appPort } from "./config";
 
 import "./database";
 
-import productRouter from "./routes/product.routes";
 
 export const init = async() => {
     const app = express();
@@ -14,9 +16,9 @@ export const init = async() => {
     app.use( morgan('dev') );
 
     //configure routes
-    app.use( productRouter );
+    app.use( router );
 
 
-    app.listen(3000);
-    console.log('Welcome to API Node.js, Express, TypeScript and TypeORM ,Listening on port 3000');
+    app.listen( appPort );
+    console.log(`Welcome to API Node.js, Express, TypeScript and TypeORM ,Listening on port ${appPort}`);
 }
