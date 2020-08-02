@@ -4,6 +4,12 @@
 # $ netstat -antplF
 
 
+TODO
+https://github.com/typeorm/typeorm/blob/master/docs/using-ormconfig.md#using-ormconfigjs
+
+## install mysql client on ubuntu
+# $ apt-get install mysql-client
+
 
 ## 1) create project
 # $ npm init -y
