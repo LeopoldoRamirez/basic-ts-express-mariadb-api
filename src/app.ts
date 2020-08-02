@@ -20,5 +20,5 @@ export const init = async() => {
 
 
     app.listen( appPort );
-    console.log(`Welcome to API Node.js, Express, TypeScript and TypeORM ,Listening on port ${appPort}`);
+    console.log(`API Node.js, Express, TypeScript and TypeORM ,Listening on port ${appPort}`);
 }
