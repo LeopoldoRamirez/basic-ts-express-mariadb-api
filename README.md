@@ -115,6 +115,17 @@ docker build -t ts-maria-api .
 docker run -d -p 9090:3000 --env-file development/env_file  --name mariats01 ts-maria-api
 
 
+### configuration for env file for typeorm
+
+TYPEORM_CONNECTION=mysql
+TYPEORM_HOST=[DATABASE_HOST]
+TYPEORM_PORT=[DATABASE_PORT]
+TYPEORM_USERNAME=[DATABASE_USER]
+TYPEORM_PASSWORD=[DATABASE_PASSWORD]
+TYPEORM_DATABASE=[DATABASE_SCHEMA]
+TYPEORM_ENTITIES=dist/entity/**/*.js
+TYPEORM_SYNCHRONIZE=[true | false]
+TYPEORM_LOGGING=[true | false]
 
 
 
