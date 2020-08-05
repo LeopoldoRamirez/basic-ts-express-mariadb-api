@@ -108,6 +108,14 @@ https://github.com/typeorm/typeorm/blob/master/docs/using-ormconfig.md#using-orm
 # $ touch ormconfig.json
 
 
+## create docker image
+docker build -t ts-maria-api .
+
+## run the image to create a container
+docker run -d -p 9090:3000 --env-file development/env_file  --name mariats01 ts-maria-api
+
+
+
 
 
 

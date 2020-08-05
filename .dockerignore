@@ -1,8 +1,11 @@
 node_modules
 dist
+development
 .git
 .gitignore
 Dockerfile
 docker-compose.yml
 .dockerignore
+*.txt
+*.log
 README.md
